@@ -1,59 +1,197 @@
-# TicketingApp
+# Hexagonal Architecture – Angular Template
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+Minimal, opinionated Angular template implementing **Hexagonal Architecture (Ports & Adapters)**.
 
-## Development server
+This repository is **pedagogical**.
+Its purpose is to provide a **clean, minimal, and understandable baseline** for developers who want to start an Angular project structured around hexagonal principles without over-engineering or spending days on architectural setup.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## 🎯 Objective
+
+Most Angular starters focus on tooling, UI, or state management.
+
+This template focuses on **architecture first**:
+
+* Clear separation between **domain**, **application**, and **infrastructure**
+* Explicit **ports (interfaces)** and **adapters**
+* No framework leakage inside the domain
+* Minimal but real example flow
+
+The goal is simple:
+
+> Start a new Angular project with a hexagonal structure already in place, so you can focus on business logic instead of debating folder structures.
+
+---
+
+## 🧱 Architectural Principles
+
+This template follows these constraints:
+
+### 1. Domain is framework-agnostic
+
+* No Angular imports
+* No HttpClient
+* No decorators
+* No RxJS dependency inside the domain
+
+The domain contains:
+
+* Entities
+* Value Objects
+* Domain services (if needed)
+* Business rules
+
+### 2. Application orchestrates use cases
+
+The application layer:
+
+* Defines **use cases**
+* Depends only on **ports**
+* Coordinates domain objects
+
+It does **not** depend on Angular or infrastructure details.
+
+### 3. Infrastructure implements ports
+
+Adapters:
+
+* HTTP implementations
+* API clients
+* External systems
+
+Infrastructure depends on Angular.
+Domain never depends on infrastructure.
+
+### 4. UI layer depends on application only
+
+Components:
+
+* Call use cases
+* Do not access infrastructure directly
+* Do not embed business logic
+
+---
+
+## 📁 Folder Structure
+
+Example structure:
+
+```
+src/app
+│
+├── domain/
+│   ├── entities/
+│   ├── value-objects/
+│   └── ports/
+│
+├── application/
+│   └── use-cases/
+│
+├── infrastructure/
+│   └── adapters/
+│
+└── ui/
+    └── features/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Each layer has a single responsibility.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🧠 Why This Exists
 
-```bash
-ng generate component component-name
+Hexagonal architecture is often:
+
+* Overcomplicated
+* Mixed with DDD jargon
+* Buried under unnecessary abstractions
+
+This template deliberately avoids that.
+
+It shows:
+
+* The **minimum viable hexagonal structure**
+* The cleanest possible dependency flow
+* A pragmatic setup usable in real projects
+
+No academic overload.
+No enterprise ceremony.
+
+---
+
+## 🚀 When To Use This Template
+
+Use this if:
+
+* You want clean separation of concerns from day one
+* You are building a medium-to-large Angular app
+* You want to enforce architectural discipline
+* You teach architecture or want a didactic example
+
+Do **not** use this if:
+
+* You are building a small landing page
+* You prefer tight Angular-coupled patterns
+* You want maximum speed with minimal structure
+
+---
+
+## 🔄 Dependency Rule
+
+Always respect:
+
+```
+UI → Application → Domain
+Infrastructure → Application (via ports)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Never:
 
-```bash
-ng generate --help
+```
+Domain → Angular
+Domain → Infrastructure
+Application → Angular HTTP
 ```
 
-## Building
+---
 
-To build the project run:
+## 📦 How To Use
 
-```bash
-ng build
-```
+1. Clone the repository
+2. Rename the project
+3. Replace the example feature with your own use case
+4. Keep the layer boundaries intact
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+When adding new functionality:
 
-## Running unit tests
+* Create domain models first
+* Define ports
+* Implement use case
+* Then build adapters
+* Finally wire UI
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Architecture before implementation.
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## 📚 Related Content
 
-For end-to-end (e2e) testing, run:
+This repository accompanies the article:
 
-```bash
-ng e2e
-```
+**“Hexagonal Architecture with Angular”**
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+It provides the concrete structure discussed in that post and can serve as a base for experimentation or extension.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## ⚖️ Philosophy
+
+Architecture is not about patterns.
+It is about controlling dependencies.
+
+This template exists to enforce that control from the beginning.
+
+Minimal.
+Clean.
+Explicit.
