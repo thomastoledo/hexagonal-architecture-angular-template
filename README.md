@@ -179,7 +179,7 @@ Architecture before implementation.
 
 This repository accompanies the article:
 
-**“Hexagonal Architecture with Angular”**
+[**“Hexagonal Architecture with Angular”**](https://thomastoledo.github.io/formation/angular/typescript/javascript/training/2026/02/16/hexagonal-architecture-with-angular.html)
 
 It provides the concrete structure discussed in that post and can serve as a base for experimentation or extension.
 
